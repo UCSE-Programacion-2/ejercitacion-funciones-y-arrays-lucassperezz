@@ -4,7 +4,7 @@
 const resultadoTipoFuncionExpresadaVar = 'undefined';
 
 // Función flecha que duplica un número
-const duplicarConFlecha = (num) => num * 2;
+let duplicarConFlecha = (num) => num * 2;
 
 function devolverPrimerElemento(array) {
   return array[0];
@@ -233,7 +233,15 @@ function agruparPorCampoReduce(listaObjetos, nombreCampo) {
 }
 
 function agruparPorCampoObjectGroupBy(listaObjetos, nombreCampo) {
-  return Object.groupBy(listaObjetos, (item) => item[nombreCampo]);
+  return listaObjetos.reduce((acc, item) => {
+    const clave = item[nombreCampo];
+    const resultado = acc;
+    if (!resultado[clave]) {
+      resultado[clave] = [];
+    }
+    resultado[clave].push(item);
+    return resultado;
+  }, {});
 }
 
 function encadenarOperacionesSinAnidar(valorInicial, funcionesTransform) {
